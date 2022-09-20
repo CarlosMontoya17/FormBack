@@ -8,6 +8,5 @@ module.exports = async (req, res, next) => {
         if(!!last){
             req.temporalId = last[0].id+=1;
         }
-        console.log(req.temporalId);
         next();
 }
