@@ -28,7 +28,7 @@ exports.SignUp = async (req, res, next) => {
     if(name !== undefined && name !== null){
         const id = req.temporalId;
         const matricula = Assigments.GenerateMatricula(id, 8);
-        if(req.inepath !== undefined || req.dompath !== undefined || req.fotopath !== undefined){
+        if(req.inepath !== undefined && req.dompath !== undefined && req.fotopath !== undefined){
             await users.create({
                 id: id,
                 matricula,
