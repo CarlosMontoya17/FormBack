@@ -29,7 +29,6 @@ const storage = multer.diskStorage({
             default:
                 break;
         }
-        console.log(name);
         cb(null, name)
     }
 });

@@ -26,28 +26,33 @@ var Assigments = {
 exports.SignUp = async (req, res, next) => {
     const { name, latitud, longitud } = req.body;
     if(name !== undefined && name !== null){
-        req.nameEnterprise = name;
         const id = req.temporalId;
         const matricula = Assigments.GenerateMatricula(id, 8);
-        await users.create({
-            id: id,
-            matricula,
-            nombre: name,
-            ine_path: req.inepath,
-            domicilio_path: req.dompath,
-            foto_path: req.fotopath,
-            latitud,
-            longitud
-        }, {fields: ['id',  'matricula', 'nombre', 'ine_path', 'domicilio_path', 'foto_path', 'latitud', 'longitud']}).then(data => {
-            if(data){
-                res.status(200).end(matricula);
-            }
-            else {
-                res.status(413).end(id);
-            }
-        }).catch(err => {
-            res.status(500);
-        });
+        if(req.inepath !== undefined || req.dompath !== undefined || req.fotopath !== undefined){
+            await users.create({
+                id: id,
+                matricula,
+                nombre: name,
+                ine_path: req.inepath,
+                domicilio_path: req.dompath,
+                foto_path: req.fotopath,
+                latitud,
+                longitud
+            }, {fields: ['id',  'matricula', 'nombre', 'ine_path', 'domicilio_path', 'foto_path', 'latitud', 'longitud']}).then(data => {
+                if(data){
+                    res.status(200).end(matricula);
+                }
+                else {
+                    res.status(413).end(id);
+                }
+            }).catch(err => {
+                res.status(500);
+            });
+        }
+        else{
+            res.status(413).end("Sin archivos");
+        }
+
     }
     else{
         return res.status(401).json({message: "Sin nombre"});
