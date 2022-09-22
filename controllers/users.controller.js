@@ -24,7 +24,7 @@ var Assigments = {
 }
 
 exports.SignUp = async (req, res, next) => {
-    const { name, latitud, longitud } = req.body;
+    const { name, latitud, longitud, number_phone } = req.body;
     if(name !== undefined && name !== null){
         const id = req.temporalId;
         const matricula = Assigments.GenerateMatricula(id, 8);
@@ -37,8 +37,9 @@ exports.SignUp = async (req, res, next) => {
                 domicilio_path: req.dompath,
                 foto_path: req.fotopath,
                 latitud,
-                longitud
-            }, {fields: ['id',  'matricula', 'nombre', 'ine_path', 'domicilio_path', 'foto_path', 'latitud', 'longitud']}).then(data => {
+                longitud,
+                number_phone
+            }, {fields: ['id',  'matricula', 'nombre', 'ine_path', 'domicilio_path', 'foto_path', 'latitud', 'longitud', 'number_phone']}).then(data => {
                 if(data){
                     res.status(200).end(matricula);
                 }

@@ -27,6 +27,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         longitud: {
             type: Sequelize.TEXT
+        },
+        number_phone: {
+            type: Sequelize.TEXT
         }
     }, {freezeTableName: true});
     return Users;    
